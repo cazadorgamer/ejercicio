@@ -4,7 +4,7 @@ const btn_atras1=document.querySelector(" .volver-pag1");
 const btn_adelante3 = document.querySelector(".adelante-pag3");
 const btn_adelante4 = document.querySelector(".adelante-pag4");
 const btn_atras2=document.querySelector(" .volver-pag2");
-
+const cancelar = document.querySelector(".btn-cancelar");
 const btn_atras3=document.querySelector(" .volver-pag3");
 const btn_final=document.querySelector(" .fin");
 
@@ -16,6 +16,26 @@ const Num= document.querySelectorAll(" .paso .num");
 
 let max=4;
 let cont=1
+
+//boton cancelar 
+
+cancelar.addEventListener("click", function(e){
+    e.preventDefault();
+    
+    Swal.fire({
+      title: '¿Estás seguro de querer salir?',
+      text: "Se perderán los datos, si es que ya llenó algunos.",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, deseo salir.'
+    }).then((result) => {
+      if (result.value) {
+        location.href="inicio.html"
+      }
+    })
+  });
   //botones de avance
 btn_adelante2.addEventListener("click", function(e){
   
@@ -71,12 +91,29 @@ btn_adelante3.addEventListener("click", function(e){
 btn_adelante4.addEventListener("click", function(e){
     
     e.preventDefault();
+    var Email=document.getElementById("Email").value;
+    var NumCel=document.getElementById("NumCel").value;
+    
+    /* Control de errores */
+
+    if(Email ==""){
+document.getElementById("Email-error").innerHTML="este campo no puede quedar vacio."
+document.getElementById("NumCel").style.borderColor="red";
+    }else if( NumCel ==""){
+document.getElementById("NumCel-error").innerHTML="este campo no puede quedar vacio."
+document.getElementById("NumCel").style.borderColor="red";
+    }else{
+        document.getElementById("Email-error").innerHTML=""
+        document.getElementById("Email").style.borderColor="lightgrey";
+        document.getElementById("NumCel-error").innerHTML=""
+        document.getElementById("NumCel").style.borderColor="lightgrey";  
+    
     movPag.style.marginLeft="-75%"; 
     Num [cont - 1].classList.add("active");
     progressCheck[cont - 1].classList.add("active");
     progressText[cont - 1].classList.add("active");
     cont +=1;
-});
+}}) ;
 btn_final.addEventListener("click", function(e){
     
     e.preventDefault();
